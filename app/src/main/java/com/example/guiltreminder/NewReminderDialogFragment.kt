@@ -1,12 +1,8 @@
 package com.example.guiltreminder
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,14 +28,16 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.fragment.app.DialogFragment
-import java.lang.reflect.Type
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
 class NewReminderDialogFragment(private val activity: OverviewActivity) : DialogFragment() {
 
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -118,7 +116,6 @@ class NewReminderDialogFragment(private val activity: OverviewActivity) : Dialog
                             TextButton(onClick = {
                                 date = datePickerState.selectedDateMillis
                                 onConfirm()
-//                                dismiss();
                             }) {
                                 Text("Next")
                             }
@@ -184,12 +181,14 @@ class NewReminderDialogFragment(private val activity: OverviewActivity) : Dialog
                         onConfirm = {
                             var timestamp: String = "";
                             if (date !== null) {
-                                timestamp = SimpleDateFormat("yyyy.MM.dd").format(Date(date!!));
+                                timestamp = SimpleDateFormat("yyyy/MM/dd").format(Date(date!!));
                             }
 
-                            timestamp += " $time";
+                            timestamp += " $time:00";
 
-                            activity.addReminder(description!!, timestamp)
+                            GlobalScope.launch {
+                                activity.addReminder(description!!, timestamp)
+                            }
                             dismiss();
                         }
                     )

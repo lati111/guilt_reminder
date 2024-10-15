@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ReminderAdapter() : RecyclerView.Adapter<ReminderViewHolder>() {
     private val TAG = javaClass.simpleName
-    private var mAllReminders: Array<Reminder>? = null
+    private var mAllReminders: Array<com.example.guiltreminder.database.Reminder>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReminderViewHolder {
         val context = parent.context
@@ -23,8 +23,8 @@ class ReminderAdapter() : RecyclerView.Adapter<ReminderViewHolder>() {
         return if (mAllReminders == null) 0 else mAllReminders!!.size
     }
 
-    fun setmAllReminders(reminders: Array<Reminder>?) {
-        reminders?.sortBy { it.remindAfter }
+    fun setmAllReminders(reminders: Array<com.example.guiltreminder.database.Reminder>?) {
+        reminders?.sortBy { it.remind_after }
         mAllReminders = reminders
         notifyDataSetChanged()
     }
