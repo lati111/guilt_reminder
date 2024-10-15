@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.guiltreminder.database.AppDatabase
+import com.example.guiltreminder.database.Reminder
 import com.example.guiltreminder.database.ReminderDao
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -34,7 +35,7 @@ class OverviewActivity : AppCompatActivity() {
             insets
         }
 
-        mReminderAdapter = ReminderAdapter()
+        mReminderAdapter = ReminderAdapter(this)
         mReminderRecyclerView = findViewById(R.id.reminderRecyclerView)
         mReminderRecyclerView.adapter = mReminderAdapter
 
@@ -63,8 +64,14 @@ class OverviewActivity : AppCompatActivity() {
 
     fun addReminder(description: String, timestamp: String) {
         this.mReminderDao.insertAll(
-            com.example.guiltreminder.database.Reminder(0, description, Date(timestamp))
+            Reminder(0, description, Date(timestamp))
         )
+
+        loadReminders();
+    }
+
+    fun finishReminder(reminder: Reminder) {
+        this.mReminderDao.delete(reminder)
 
         loadReminders();
     }

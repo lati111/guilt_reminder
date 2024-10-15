@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ReminderAdapter() : RecyclerView.Adapter<ReminderViewHolder>() {
+class ReminderAdapter(val activity: OverviewActivity) : RecyclerView.Adapter<ReminderViewHolder>() {
     private val TAG = javaClass.simpleName
     private var mAllReminders: Array<com.example.guiltreminder.database.Reminder>? = null
 
@@ -12,7 +12,7 @@ class ReminderAdapter() : RecyclerView.Adapter<ReminderViewHolder>() {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.reminder_view, parent, false)
-        return ReminderViewHolder(view)
+        return ReminderViewHolder(activity, view)
     }
 
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {

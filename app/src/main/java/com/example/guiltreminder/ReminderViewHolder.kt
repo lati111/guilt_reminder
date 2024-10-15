@@ -1,12 +1,14 @@
 package com.example.guiltreminder
 
 import android.view.View
+import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class ReminderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+class ReminderViewHolder(val activity: OverviewActivity, itemView: View) : RecyclerView.ViewHolder(itemView){
     private val mDescriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
     private val mRemindAfterTextView: TextView = itemView.findViewById(R.id.remindAfterTextView)
 
@@ -35,5 +37,13 @@ class ReminderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         mDescriptionTextView.text = description;
         mRemindAfterTextView.text = remindAtString;
+
+        val checkbox: CheckBox = itemView.findViewById(R.id.doneCheckbox)
+        checkbox.setOnClickListener(View.OnClickListener { view: View ->
+            checkbox.isChecked = false;
+
+            val newFragment = FinishReminderDialogFragment(activity, reminder)
+            newFragment.show(activity.supportFragmentManager, "game")
+        })
     }
 }
