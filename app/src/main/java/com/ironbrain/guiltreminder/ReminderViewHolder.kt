@@ -21,18 +21,22 @@ class ReminderViewHolder(val activity: OverviewActivity, itemView: View) : Recyc
 
         val dayFormat: SimpleDateFormat = SimpleDateFormat("dd");
 
-        if (dayFormat.format(currDate) == dayFormat.format(remindAfter)) {
-            remindAtString = "Today, ";
-        } else if ("" + ((dayFormat.format(currDate)
-                .toInt() + 1)) == dayFormat.format(remindAfter)
-        ) {
-            remindAtString = "Tomorrow, ";
-        } else {
-            val dayDiff = (((remindAfter.time - currDate.time) / 1000) / (60 * 60 * 24) + 1)
-            remindAtString = "In " + (dayDiff) + " days, ";
-        }
+        if (currDate.after(remindAfter) === false) {
+            if (dayFormat.format(currDate) == dayFormat.format(remindAfter)) {
+                remindAtString = "Today, ";
+            } else if ("" + ((dayFormat.format(currDate)
+                    .toInt() + 1)) == dayFormat.format(remindAfter)
+            ) {
+                remindAtString = "Tomorrow, ";
+            } else {
+                val dayDiff = (((remindAfter.time - currDate.time) / 1000) / (60 * 60 * 24) + 1)
+                remindAtString = "In " + (dayDiff) + " days, ";
+            }
 
-        remindAtString += SimpleDateFormat("HH:mm").format(remindAfter);
+            remindAtString += SimpleDateFormat("HH:mm").format(remindAfter);
+        } else {
+            remindAtString = "Now"
+        }
 
         mDescriptionTextView.text = description;
         mRemindAfterTextView.text = remindAtString;
