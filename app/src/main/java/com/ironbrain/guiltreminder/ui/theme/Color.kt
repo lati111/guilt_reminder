@@ -1,4 +1,4 @@
-package com.example.guiltreminder.ui.theme
+package com.ironbrain.guiltreminder.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

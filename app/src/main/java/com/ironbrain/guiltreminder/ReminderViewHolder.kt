@@ -1,8 +1,7 @@
-package com.example.guiltreminder
+package com.ironbrain.guiltreminder
 
 import android.view.View
 import android.widget.CheckBox
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
@@ -13,7 +12,7 @@ class ReminderViewHolder(val activity: OverviewActivity, itemView: View) : Recyc
     private val mRemindAfterTextView: TextView = itemView.findViewById(R.id.remindAfterTextView)
 
     // Show the data in the views
-    fun bind(reminder: com.example.guiltreminder.database.Reminder) {
+    fun bind(reminder: com.ironbrain.guiltreminder.database.Reminder) {
         val description = reminder.description;
         val remindAfter = reminder.remind_after;
 

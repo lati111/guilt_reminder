@@ -1,4 +1,4 @@
-package com.example.guiltreminder.database
+package com.ironbrain.guiltreminder.database
 
 import androidx.room.Dao
 import androidx.room.Delete

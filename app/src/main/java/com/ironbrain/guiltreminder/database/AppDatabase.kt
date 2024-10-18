@@ -1,4 +1,4 @@
-package com.example.guiltreminder.database
+package com.ironbrain.guiltreminder.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

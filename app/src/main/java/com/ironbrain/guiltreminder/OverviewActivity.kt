@@ -1,4 +1,4 @@
-package com.example.guiltreminder
+package com.ironbrain.guiltreminder
 
 import android.os.Bundle
 import android.view.View
@@ -9,9 +9,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.guiltreminder.database.AppDatabase
-import com.example.guiltreminder.database.Reminder
-import com.example.guiltreminder.database.ReminderDao
+import com.ironbrain.guiltreminder.database.AppDatabase
+import com.ironbrain.guiltreminder.database.Reminder
+import com.ironbrain.guiltreminder.database.ReminderDao
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

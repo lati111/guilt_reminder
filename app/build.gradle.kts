@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.guiltreminder"
+    namespace = "com.ironbrain.guiltreminder"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.guiltreminder"
+        applicationId = "com.ironbrain.guiltreminder"
         minSdk = 27
         targetSdk = 34
         versionCode = 1

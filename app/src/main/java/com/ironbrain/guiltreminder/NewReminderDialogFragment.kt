@@ -1,4 +1,4 @@
-package com.example.guiltreminder
+package com.ironbrain.guiltreminder
 
 import android.os.Bundle
 import android.view.LayoutInflater
