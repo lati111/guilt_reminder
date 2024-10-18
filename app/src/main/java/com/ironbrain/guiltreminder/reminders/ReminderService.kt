@@ -84,9 +84,9 @@ class ReminderService : Service() {
 
     fun sendReminder(reminder: Reminder) {
         var builder = NotificationCompat.Builder(applicationContext, getString(R.string.notification_channel_id))
-            .setSmallIcon(R.drawable.plus_circle)
+            .setSmallIcon(R.drawable.appicon)
             .setContentTitle("Reminder: " + reminder.description)
-            .setContentText("Task has not been completed yet")
+            .setContentText("You still have a task to do, now would be a good time to start.")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         with(NotificationManagerCompat.from(applicationContext)) {

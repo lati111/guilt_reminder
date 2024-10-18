@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GuiltReminder</string>
+    <string name="app_name">Guilt Reminder</string>
 
     <string name="notification_channel_id">reminder_notifications</string>
     <string name="notification_channel_name">Reminders</string>
