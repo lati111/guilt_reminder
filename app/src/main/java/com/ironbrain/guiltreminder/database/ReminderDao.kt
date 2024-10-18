@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import java.util.Date
 
 @Dao
 interface ReminderDao {
@@ -15,6 +16,9 @@ interface ReminderDao {
 
     @Insert
     fun insertAll(vararg reminders: Reminder)
+
+    @Query("UPDATE reminder SET last_reminded = :lastReminded WHERE id = :id")
+    fun updateLastReminded(id: Int, lastReminded: Date): Int
 
     @Delete
     fun delete(reminder: Reminder)
