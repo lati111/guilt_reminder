@@ -86,7 +86,7 @@ class ReminderService : Service() {
         var builder = NotificationCompat.Builder(applicationContext, getString(R.string.notification_channel_id))
             .setSmallIcon(R.drawable.appicon)
             .setContentTitle("Reminder: " + reminder.description)
-            .setContentText("You still have a task to do, now would be a good time to start.")
+            .setContentText("You still have a task to do, now would be a good time to start. You got this!")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         with(NotificationManagerCompat.from(applicationContext)) {

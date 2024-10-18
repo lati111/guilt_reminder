@@ -4,4 +4,5 @@
     <string name="notification_channel_id">reminder_notifications</string>
     <string name="notification_channel_name">Reminders</string>
     <string name="notification_channel_description">Reminders sent every 5 minutes until you finish the task.</string>
+    <string name="overview_title">Reminders</string>
 </resources>
