@@ -1,10 +1,8 @@
 package com.ironbrain.guiltreminder
 
 import android.Manifest
-import android.app.ActivityManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -19,18 +17,13 @@ import androidx.room.Room
 import com.ironbrain.guiltreminder.database.AppDatabase
 import com.ironbrain.guiltreminder.database.Reminder
 import com.ironbrain.guiltreminder.database.ReminderDao
-import com.ironbrain.guiltreminder.reminders.ReminderService
-import com.ironbrain.guiltreminder.reminders.Restarter
+import com.ironbrain.guiltreminder.reminders.ReminderManager
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.Date
-import java.util.Objects
 
 class OverviewActivity : AppCompatActivity() {
-    lateinit var mServiceIntent: Intent;
-    private lateinit var mReminderService: ReminderService;
-
     private lateinit var mReminderRecyclerView: RecyclerView
     private lateinit var mReminderAdapter: ReminderAdapter
     private lateinit var mReminderDao: ReminderDao
@@ -74,16 +67,6 @@ class OverviewActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        // Restart reminder service as background thread
-        val restartIntent: Intent = Intent();
-        restartIntent.setAction("restartservice");
-        restartIntent.setClass(this, Restarter::class.java);
-        this.sendBroadcast(restartIntent);
-
-        super.onDestroy()
-    }
-
     fun loadReminders() {
         val reminders = this.mReminderDao.getAll().toTypedArray();
         runOnUiThread {
@@ -95,6 +78,12 @@ class OverviewActivity : AppCompatActivity() {
         this.mReminderDao.insertAll(
             Reminder(0, description, Date(timestamp))
         )
+
+        for (reminder: Reminder in this.mReminderDao.getAll()) {
+            if (reminder.description.equals(description)  && reminder.remind_after.toString().equals(Date(timestamp).toString())) {
+                ReminderManager.sendReminder(this, reminder);
+            }
+        }
 
         loadReminders();
     }
@@ -125,25 +114,5 @@ class OverviewActivity : AppCompatActivity() {
         mChannel.description = getString(R.string.notification_channel_description)
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(mChannel)
-
-        // Launch service
-        mReminderService = ReminderService();
-        mServiceIntent = Intent(this, ReminderService::class.java);
-        if (!isReminderServiceRunning(ReminderService::class.java)) {
-            startService(mServiceIntent);
-        }
-        startService(Intent(this, ReminderService::class.java))
-    }
-
-    private fun isReminderServiceRunning(serviceClass: Class<ReminderService>): Boolean {
-        val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
-        val runningServices: List<ActivityManager.RunningServiceInfo> = Objects.requireNonNull(activityManager).getRunningServices(Int.MAX_VALUE)
-        for (i in runningServices.indices) {
-            if (serviceClass.getName().equals(runningServices[i].service.className)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

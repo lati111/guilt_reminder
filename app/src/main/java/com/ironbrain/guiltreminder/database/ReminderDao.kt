@@ -8,6 +8,9 @@ import java.util.Date
 
 @Dao
 interface ReminderDao {
+    @Query("SELECT * FROM reminder WHERE id = :id")
+    fun get(id: Int): Reminder
+
     @Query("SELECT * FROM reminder ORDER BY remind_after ASC")
     fun getAll(): List<Reminder>
 
