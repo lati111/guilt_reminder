@@ -1,5 +1,6 @@
 package com.ironbrain.guiltreminder
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +38,7 @@ import java.util.Date
 
 class NewReminderDialogFragment(private val activity: OverviewActivity) : DialogFragment() {
 
+    @SuppressLint("SimpleDateFormat")
     @OptIn(ExperimentalMaterial3Api::class, DelicateCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -180,11 +182,14 @@ class NewReminderDialogFragment(private val activity: OverviewActivity) : Dialog
                     TimePickerDialog(
                         onConfirm = {
                             var timestamp: String = "";
-                            if (date !== null) {
-                                timestamp = SimpleDateFormat("yyyy/MM/dd").format(Date(date!!));
+                            var dateInstance: Date;
+                            if (date === null) {
+                                dateInstance = Date();
+                            } else {
+                                dateInstance = Date(date!!);
                             }
 
-                            timestamp += " $time:00";
+                            timestamp = SimpleDateFormat("yyyy/MM/dd").format(dateInstance) + " $time:00";
 
                             GlobalScope.launch {
                                 activity.addReminder(description!!, timestamp)
