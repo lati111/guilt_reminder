@@ -89,7 +89,6 @@ class FinishReminderDialogFragment(val activity: OverviewActivity, val reminder:
                 suspend fun unlockButtons() {
                     delay(2000)
                     lockButtons = false
-                    Log.i("lock", "buttons unlocked")
                 }
 
                 fun lockButtons() {
@@ -97,8 +96,6 @@ class FinishReminderDialogFragment(val activity: OverviewActivity, val reminder:
                     GlobalScope.launch {
                         unlockButtons()
                     }
-
-                    Log.i("lock", "buttons locked")
                 }
 
                 lockButtons();

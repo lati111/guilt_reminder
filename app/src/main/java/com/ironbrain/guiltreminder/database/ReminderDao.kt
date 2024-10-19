@@ -20,7 +20,7 @@ interface ReminderDao {
     @Insert
     fun insertAll(vararg reminders: Reminder)
 
-    @Query("UPDATE reminder SET last_reminded = :lastReminded WHERE id = :id")
+    @Query("UPDATE reminder SET last_reminded = :lastReminded, remind_count = (remind_count + 1) WHERE id = :id")
     fun updateLastReminded(id: Int, lastReminded: Date): Int
 
     @Delete

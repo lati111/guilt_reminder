@@ -10,5 +10,6 @@ data class Reminder(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "remind_after") val remind_after: Date,
-    @ColumnInfo(name = "last_reminded") val last_reminded: Date? = null
+    @ColumnInfo(name = "last_reminded") val last_reminded: Date? = null,
+    @ColumnInfo(name = "remind_count") val remind_count: Int = 0
 )

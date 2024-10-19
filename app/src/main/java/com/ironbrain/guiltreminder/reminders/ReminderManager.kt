@@ -24,10 +24,7 @@ class ReminderManager {
 
             // Create notification intent
             val notificationIntent = Intent(context, NotificationReceiver::class.java)
-            notificationIntent.putExtra("notificationId", 1)
             notificationIntent.putExtra("reminderId", reminder.id)
-            notificationIntent.putExtra("title", "Reminder: "+reminder.description)
-            notificationIntent.putExtra("message", "You still have a task to do, now would be a good time to start. You got this!")
 
             // Make intent pending
             val pendingIntent = PendingIntent.getBroadcast(
